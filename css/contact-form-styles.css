@@ -1,0 +1,337 @@
+/* ***********************************************************************************************************************
+ * 
+ * Referral Form 
+ * 
+ ***********************************************************************************************************************/
+
+#make-a-referral form {
+	margin-top: 2em;
+}
+
+.referral-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.referral-form p {
+    display: flex;
+	width: 100%;
+}
+
+.referral-form .wpcf7-form-control-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 0.5em;
+}
+
+.referral-form input {
+    width: 100%;
+    padding: 0.5em 1em;
+    border: solid var(--color-primary);
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #eee;
+}
+
+.referral-form input[type="submit"] {
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5em;
+	transform: translate(10px, 0px);
+	width: 98.5%;
+    border-radius: 10px;
+}
+
+.referral-form input[type="submit"]:hover {
+	cursor: pointer;
+	background-color: var(--color-primary-hover);
+}
+
+@media only screen and (min-width: 500px) {
+	
+	.referral-form .wpcf7-form-control-wrap.post-code {
+		width: 60%;
+	}
+
+}
+
+@media only screen and (max-width: 500px) {
+
+	.referral-form p {
+		flex-direction: column;
+		padding: 0;
+	}
+	
+	.referral-form .wpcf7-form-control-wrap {
+		margin: 0.5em 0.5em;
+	}
+
+}
+
+/* Referral Form Registered Reg BackGround */
+
+#make-a-referral.red-bg .referral-form input,
+#make-a-referral.red-bg .referral-form .codedropz-upload-container {
+	background-color: #fff;
+}
+
+#make-a-referral.red-bg .referral-form input[type="submit"] {
+    background-color: var(--color-primary);
+	border: solid #fff 2px;
+}
+
+#make-a-referral.red-bg .referral-form .codedropz-btn-wrap .cd-upload-btn {
+	border: solid 2px #fff;
+    color: #fff;
+}
+
+#make-a-referral.red-bg .referral-form .codedropz-btn-wrap::after {
+	color: #fff;
+}
+
+
+
+/************************************************************************************************************************ 
+ * 
+ * CV Form 
+ * 
+ ************************************************************************************************************************/
+
+.cv-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+	align-items: center;
+}
+
+.cv-form p {
+    display: flex;
+	width: 100%;
+}
+
+h5.cv-form-title {
+	font-weight: 700;
+    font-size: 27px;
+    color: #ffffff!important;
+    line-height: 2em;
+	background: rgb(0,38,58);
+    border-radius: 10px;
+	padding: 0 50px 0 0;
+    padding-left: 1em!important;
+}
+
+.cv-form .wpcf7-form-control-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 0.5em;
+}
+
+.cv-form input,
+.cv-form textarea {
+    width: 100%;
+    padding:  0.5em 1em;
+    border: solid var(--color-primary);
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #eee;
+}
+
+.cv-form input[type="submit"] {
+/*     background-color: var(--color-primary); */
+	background-color: rgba(255, 2, 136, 1);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5em;
+	width: 100%;
+    border-radius: 10px;
+	transition: All 300ms ease-in-out;
+}
+
+.cv-form .wpcf7-spinner {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.cv-form input[type="submit"]:hover {
+	cursor: pointer;
+/* 	background-color: var(--color-primary-hover); */
+	background-color: rgba(255, 2, 136, 0.7);
+	transition: All 300ms ease-in-out;
+}
+
+.cv-form .codedropz-upload-handler {
+    border: dashed 2px var(--color-primary);
+    margin-bottom: 4em;
+    border-radius: 15px;
+}
+
+.cv-form .codedropz-upload-container {
+    padding: 7em 1em;
+    background-color: #eee;
+	border-radius: 15px;
+}
+
+.cv-form .codedropz-upload-inner h3 {
+    font-size: 20px;
+    line-height: 1;
+    margin: 0;
+	white-space: break-spaces;
+}
+
+.cv-form .codedropz-upload-inner>span,
+.cv-form .dnd-upload-counter {
+    display: none;
+}
+
+.cv-form .codedropz-btn-wrap {
+	position: absolute;
+    bottom: -57px;
+	left: 0;
+}
+
+.cv-form .codedropz-btn-wrap::after {
+    content: "Accepted file types: pdf, doc, docx, rtf.";
+    margin-left: 1em;
+}
+
+
+.cv-form .codedropz-btn-wrap .cd-upload-btn {
+    border: solid 2px var(--color-primary);
+    padding: 5px 10px;
+    font-size: 21px;
+    border-radius: 10px;
+    color: var(--color-primary);
+}
+
+.cv-form .codedropz-btn-wrap .upload-arrow {
+    font-size: 17px;
+    margin-right: 10px;
+}
+
+
+.wpcf7 .ajax-loader {
+    position: absolute;
+    bottom: 35px;
+}
+
+@media only screen and (min-width: 500px) {
+	
+	.cv-form .wpcf7-form-control-wrap.post-code {
+		width: 60%;
+	}
+
+}
+
+@media only screen and (max-width: 500px) {
+
+	.cv-form p {
+		flex-direction: column;
+		padding: 0;
+	}
+	
+	.cv-form .wpcf7-form-control-wrap {
+		margin: 0.5em 0.5em;
+	}
+
+}
+
+
+/************************************************************************************************************************ 
+ * 
+ * Contact Page Form 
+ * 
+ ************************************************************************************************************************/
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding:  0.5em 1em;
+    margin-bottom: 1em;
+    border: solid 2px var(--color-primary);
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.contact-form input[type="submit"] {
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+}
+
+.contact-form input[type="submit"]:hover {
+    background-color: var(--color-primary-hover);
+    cursor: pointer;
+}
+
+/************************************************************************************************************************ 
+ * 
+ * Volunteer Form 
+ * 
+ ************************************************************************************************************************/
+
+.volunteer-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+	align-items: center;
+}
+
+.volunteer-form p {
+    display: flex;
+	width: 100%;
+}
+
+.volunteer-form .wpcf7-form-control-wrap {
+    position: relative;
+    width: 100%;
+    margin: 0 0.5em;
+}
+
+.volunteer-form input,
+.volunteer-form textarea {
+    width: 100%;
+    padding: 0.5em 1em;
+    border: solid var(--color-primary);
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #eee;
+}
+
+.volunteer-form input[type="submit"] {
+    background-color: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.5em;
+	transform: translate(10px, 0px);
+	width: 98.5%;
+    border-radius: 10px;
+}
+
+.volunteer-form input[type="submit"]:hover {
+	cursor: pointer;
+	background-color: var(--color-primary-hover);
+}
+
+@media only screen and (min-width: 500px) {
+	
+	.volunteer-form .wpcf7-form-control-wrap.post-code {
+		width: 60%;
+	}
+
+}
+
+@media only screen and (max-width: 500px) {
+
+	.volunteer-form p {
+		flex-direction: column;
+		padding: 0;
+	}
+	
+	.volunteer-form .wpcf7-form-control-wrap {
+		margin: 0.5em 0.5em;
+	}
+
+}

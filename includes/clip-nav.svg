@@ -1,0 +1,7 @@
+<svg width="0" height="0">
+  <defs>
+	<clipPath id="myCurve" clipPathUnits="objectBoundingBox">
+	  <path d="M0,0 C309,3 297,178 599,199"></path>
+	</clipPath>
+  </defs>
+</svg>

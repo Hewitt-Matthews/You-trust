@@ -1,0 +1,48 @@
+.contact-form {
+    padding: 1.5em;
+    position: absolute;
+	width: 100%;
+    opacity: 0;
+    height: 0;
+    z-index: -1;
+}
+
+.contact-form.active {
+    position: relative;
+    opacity: 1;
+    height: 100%;
+    z-index: 1;
+	background: #fafafa;
+}
+
+.contact-form h2 {
+    font-size: 27px!important;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.form-tabs {
+    display: flex;
+}
+
+.form-tabs>div {
+    padding: 1em;
+	background: #eee;
+    color: #333;
+    font-weight: 600;
+	transition: 500ms;
+	border-radius: 10px 10px 0 0;
+}
+
+.form-tabs>div.active {
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.form-tabs>div:hover {
+	cursor: pointer;
+	background: var(--color-primary);
+	color: #fff;
+	transition: 500ms;
+}
+

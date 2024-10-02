@@ -1,0 +1,76 @@
+@media only screen and (min-width: 980px) {
+	#vacancies-loop {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2em;
+	}
+}
+
+
+@media only screen and (min-width: 1300px) {
+	#vacancies-loop {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2em;
+	}
+}
+
+#vacancies-loop>a {
+    position: relative;
+	width: 100%;
+	display: block;
+    background: var(--color-primary);
+    border-radius: 20px;
+    padding: 1em;
+    color: #fff;
+}
+
+@media only screen and (max-width: 980px) {
+	#vacancies-loop>a {
+		margin-bottom: 2em;
+	}
+}
+
+#vacancies-loop>a .category {
+    background: rebeccapurple;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px 5px 10px;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    transform: translate(-30px, 0px);
+    transition: 500ms;
+}
+
+#vacancies-loop>a:hover .category {
+	transform: translate(0px, 0px);
+	transition: 500ms;
+}
+
+#vacancies-loop>a .category span {
+    flex: 0 1;
+	white-space: nowrap;
+    text-align: center;
+    transition: 500ms;
+}
+
+#vacancies-loop>a:hover .category span {
+	flex: 1;
+	transition: 500ms;
+}
+
+#vacancies-loop>a h2 {
+    color: #fff;
+    font-weight: 700;
+}
+
+#vacancies-loop>a .salary {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#vacancies-loop>a p {
+    padding-bottom: 5px;
+}

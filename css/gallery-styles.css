@@ -1,0 +1,194 @@
+/* News Loop / Benefits Section */
+
+	#news-loop, #nav-row {
+    	z-index: 3!important;
+    }
+    
+    #news-loop .news-tile {
+        height: 450px;
+    	position: relative;
+		display: flex;
+    	flex-direction: column;
+    }
+	#news-loop .news-tile a {
+        background-blend-mode: saturation;
+    	background-size: contain!important;
+    	background-repeat: no-repeat!important;
+    	background-position: center!important;
+    	position: relative;
+    }
+    
+    
+    #news-loop .news-tile:hover {
+        background-blend-mode: color-dodge;
+    }
+
+	#news-loop .news-tile::after,
+	#news-loop .news-tile::after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 999;
+		background-color: rgba(255, 255, 255, 0);
+		transition: 300ms;
+	}
+	#news-loop .news-tile.swiper-slide-prev::after,
+	#news-loop .news-tile.swiper-slide-next::after {
+		background-color: rgba(255, 255, 255, 0.7);
+		transition: 300ms;
+	}
+    
+    #news-loop .news-tile>a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: relative;
+        z-index: 2;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+    
+    #news-loop .news-tile>a .post-date {
+        margin-bottom: 0;
+        font-weight: 500;
+        color: #fff;
+    }
+    
+    #news-loop .news-tile>a>* {
+        padding: 0;
+        margin-bottom: 1em;
+        color: #fff;
+    }
+    #news-loop .news-tile>a>h2 {
+        font-size: 32px;
+    }
+    #news-loop .news-tile>a .sub-heading {
+        color: #00b1eb;
+        font-weight: bold;
+    }
+    
+    .news-arrows {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .news-arrows .swiper-button-prev::after,
+    .news-arrows .swiper-button-next::after {
+        content: none!important;
+    }
+    /* 
+    .news-arrows .swiper-button-prev,
+    .news-arrows .swiper-button-next {
+        background: url(/wp-content/uploads/2021/05/left-arrow-angle.png);
+        background-size: cover;
+        background-position: center;
+    } */
+    
+    .news-arrows .swiper-button-next {
+        transform: rotate(180deg);
+    }
+    
+    #nav-row>div {
+        margin-bottom: 0;
+    }
+    
+    .news-arrows .line {
+        display: block;
+        width: 9px;
+        background: #333;
+        height: 70%;
+        position: absolute;
+        left: 0;
+    }
+    
+    .news-arrows .swiper-button-prev .line,
+    .news-arrows .swiper-button-next .line {
+        background: rgb(255,2,136);
+    }
+    .news-arrows .swiper-button-prev:hover .line,
+    .news-arrows .swiper-button-next:hover .line {
+        background: rgb(255,165,22);
+        transition: background 500ms;
+    }
+    .news-arrows .swiper-button-prev .line.top {
+        top: 0;
+        transform: rotate(45deg) translate(6px, -8px);
+    }
+    
+    .news-arrows .swiper-button-prev .line.bottom {
+        bottom: 0;
+        transform: rotate(-45deg) translate(6px, 8px);
+    }
+    
+    .news-arrows .swiper-button-next .line.top {
+        top: 0;
+        transform: rotate(45deg) translate(6px, -8px);
+    }
+    
+    .news-arrows .swiper-button-next .line.bottom {
+        bottom: 0;
+        transform: rotate(-45deg) translate(6px, 8px);
+    }
+    
+    
+    @media only screen and (max-width:980px) {
+        #news-loop .news-tile>a h2 {
+            font-size: 30px;
+        }
+    }
+    
+    @media only screen and (max-width:500px) {
+        #news-loop .news-tile>a h2 {
+            font-size: 20px;
+        }
+        
+        #page-container #nav-row a.et_pb_button {
+            padding: 10px 15px!important;
+        }
+    }
+    
+    .benefits-heading {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 20px 5%!important;
+        margin: 0!important;
+    }
+    .benefits-heading h2 {
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        font-size: 32px;
+    }
+    .benefits-text {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .benefits-text p {
+		font-size: 16px;
+    	line-height: 1.8em;
+		color: #666;
+		text-align: center
+    }
+
+.news-swiper.swiper-container {
+	overflow: visible;
+	margin-bottom: 3em;
+}
+.news-swiper .swiper-pagination.swiper-pagination-bullets {
+	bottom: -3em;
+}
+
+.news-swiper .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+	background: rgb(255,2,136);
+}

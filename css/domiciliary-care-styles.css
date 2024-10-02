@@ -1,0 +1,25 @@
+.quote-container .et_pb_text_inner {
+	position: static;
+}
+.quote-container p {
+    z-index: 2;
+    position: relative;	
+}
+
+.quote-container .fas {
+    position: absolute;
+	font-size: 150px;
+	color: #00000080;
+}
+
+.fas.fa-quote-right.top {
+    left: 5%;
+    top: 5%;
+	transform: rotateY(180deg);
+}
+
+
+.fas.fa-quote-right.bottom {
+    right: 5%;
+    bottom: 5%;
+}

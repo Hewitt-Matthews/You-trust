@@ -1,0 +1,20 @@
+/* CV Form Registered Care Home adjustments */
+
+#post-790 .referral-form input,
+#post-790 .referral-form .codedropz-upload-container {
+	background-color: #fff;
+}
+
+#post-790 .referral-form input[type="submit"] {
+    background-color: var(--color-primary);
+	border: solid #fff 2px;
+}
+
+#post-790 .referral-form .codedropz-btn-wrap .cd-upload-btn {
+	border: solid 2px #fff;
+    color: #fff;
+}
+
+#post-790 .referral-form .codedropz-btn-wrap::after {
+	color: #fff;
+}

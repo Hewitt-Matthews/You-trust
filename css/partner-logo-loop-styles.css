@@ -1,0 +1,20 @@
+/*********************************************************************************************************
+ * 
+ * Partner Logos
+ * 
+ ********************************************************************************************************/
+
+.partner-logos-container {
+	display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.partner-logos-container>div {
+	align-items: center;
+}
+
+.partner-logos-container .swiper-slide.logo {
+    text-align: center;
+}
