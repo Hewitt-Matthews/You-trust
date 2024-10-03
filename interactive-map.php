@@ -13,8 +13,8 @@ if ($map_image) : ?>
 <div class="interactive-map section section--spaced">
     <div class="wrapper">
         <div class="interactive-map__container">
-            <img src="<?= esc_url($map_image['url']) ?>" alt="<?= esc_attr($map_image['alt']) ?>" class="map-svg">
-            <div class="map-highlight-overlay"></div>
+            <img src="<?= esc_url($map_image['url']) ?>" alt="<?= esc_attr($map_image['alt']) ?>" class="map-image">
+            <div class="map-overlay"></div>
             <div class="interactive-map__info-box" id="mapInfoBox">
                 <!-- Info will be dynamically inserted here -->
             </div>
@@ -59,52 +59,14 @@ if ($map_image) : ?>
         gap: 20px;
     }
 
-    .interactive-map__info-box {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 300px; /* Adjust as needed */
-        background-color: white;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        z-index: 20;
-        display: none; /* Hide by default */
-        opacity: 0; /* Start with 0 opacity for fade-in effect */
-        transition: opacity 0.3s ease; /* Smooth transition for fade-in/out */
-    }
-
-    .info-box-close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 0;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #888;
-        transition: color 0.3s ease;
-    }
-
-    .info-box-close:hover {
-        color: #333;
-    }
-
     .interactive-map__container {
         position: relative;
         width: 100%;
         height: 0;
-        padding-bottom: 56.25%; /* Adjust this value based on your map's aspect ratio */
+        padding-bottom: 56.25%; /* Adjust based on your image aspect ratio */
     }
 
-    .interactive-map__container img {
+    .map-image {
         position: absolute;
         top: 0;
         left: 0;
@@ -113,47 +75,49 @@ if ($map_image) : ?>
         object-fit: cover;
     }
 
-    .map-highlight-overlay {
+    .map-overlay {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 0, 0.3); /* Semi-transparent yellow */
+        background: rgba(0, 0, 0, 0.4); /* This is equivalent to #00000066 */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 15;
+    }
+
+    .interactive-map__info-box {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 300px;
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        z-index: 20;
+        display: none;
         opacity: 0;
         transition: opacity 0.3s ease;
-        pointer-events: none;
     }
 
     .map-pin {
         position: absolute;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -100%);
+        cursor: pointer;
         z-index: 10;
     }
 
     .map-pin__marker {
         width: 24px;
         height: 24px;
-        cursor: pointer;
-        color: red; /* Change this to adjust the pin color */
-        filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); /* Add a shadow effect */
-    }
-
-    .map-pin__marker svg {
-        width: 100%;
-        height: 100%;
+        color: #ff0000; /* Adjust pin color as needed */
     }
 
     .map-pin__info {
-        display: none; /* Hide the original info boxes */
-    }
-
-    .map-svg path {
-        transition: fill 0.3s ease;
-    }
-
-    .map-svg .highlighted {
-        fill: rgba(255, 255, 0, 0.3); /* Semi-transparent yellow, adjust as needed */
+        display: none;
     }
 </style>
 
@@ -161,8 +125,8 @@ if ($map_image) : ?>
 document.addEventListener('DOMContentLoaded', function() {
     const mapPins = document.querySelectorAll('.map-pin');
     const infoBox = document.getElementById('mapInfoBox');
-    const mapSvg = document.querySelector('.map-svg');
     const mapContainer = document.querySelector('.interactive-map__container');
+    const mapOverlay = document.querySelector('.map-overlay');
     
     mapPins.forEach(pin => {
         pin.addEventListener('click', (e) => {
@@ -170,20 +134,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const info = pin.querySelector('.map-pin__info').innerHTML;
             infoBox.innerHTML = info;
             showInfoBox();
-        });
-
-        pin.addEventListener('mouseenter', () => {
-            const region = pin.dataset.region;
-            highlightRegion(region);
-        });
-
-        pin.addEventListener('mouseleave', () => {
-            resetHighlight();
+            showOverlay();
         });
     });
 
     mapContainer.addEventListener('click', () => {
         hideInfoBox();
+        hideOverlay();
     });
 
     infoBox.addEventListener('click', (e) => {
@@ -204,24 +161,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
 
-    function highlightRegion(region) {
-        const regionElement = mapSvg.querySelector(`#${region}`);
-        if (regionElement) {
-            regionElement.classList.add('highlighted');
-        }
+    function showOverlay() {
+        mapOverlay.style.visibility = 'visible';
+        mapOverlay.style.opacity = '1';
     }
 
-    function resetHighlight() {
-        const highlightedRegions = mapSvg.querySelectorAll('.highlighted');
-        highlightedRegions.forEach(region => {
-            region.classList.remove('highlighted');
-        });
+    function hideOverlay() {
+        mapOverlay.style.opacity = '0';
+        setTimeout(() => {
+            mapOverlay.style.visibility = 'hidden';
+        }, 300);
     }
-
-    const closeIcon = document.createElement('button');
-    closeIcon.innerHTML = '&times;';
-    closeIcon.classList.add('info-box-close');
-    closeIcon.addEventListener('click', hideInfoBox);
-    infoBox.appendChild(closeIcon);
 });
 </script>
