@@ -105,19 +105,6 @@ $locations = get_posts(array(
         max-width: 496px; /* Added width */
     }
 
-    .map-pin {
-        position: absolute;
-        transform: translate(-50%, -100%);
-        cursor: pointer;
-        z-index: 10;
-    }
-
-    .map-pin__marker {
-        width: 24px;
-        height: 24px;
-        color: #ff0000; /* Adjust pin color as needed */
-    }
-
     .map-pin__info {
         display: none;
     }
@@ -166,114 +153,142 @@ $locations = get_posts(array(
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const mapPins = document.querySelectorAll('.map-pin');
     const infoBox = document.getElementById('mapInfoBox');
-    const mapContainer = document.querySelector('.interactive-map__container');
     const mapOverlay = document.querySelector('.map-overlay');
-    
-    // Add debug element
-    const debugEl = document.createElement('pre');
-    debugEl.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: black; color: white; padding: 10px; z-index: 9999;';
-    document.body.appendChild(debugEl);
-    
-    // Define colors for each region
-    const regionColors = {
-        'path-1': '#F5A322', // Yellow
-        'path-2': '#E62485', // Pink
-        'path-3': '#00827B', // Dark Green
-        'path-4': '#4DA2DA', // Blue
-        'path-5': '#F9BE00', // Yellow
-        'path-6': '#E95E2E', // Orange
-        'path-7': '#B51F1F', // Red
-        'path-8': '#8246AF'  // Purple
+    const paths = document.querySelectorAll('svg path');
+
+    // Define the region colors and data
+    const regionData = {
+        'path-1': {
+            color: '#553B8E',
+            title: 'Isle of Wight',
+            description: '<?php 
+                $isleOfWight = get_field('isle_of_wight', 'option');
+                echo esc_js($isleOfWight['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($isleOfWight['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($isleOfWight['button_url']); ?>'
+        },
+        'path-2': {
+            color: '#276DB4',
+            title: 'West Sussex',
+            description: '<?php 
+                $westSussex = get_field('west_sussex', 'option');
+                echo esc_js($westSussex['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($westSussex['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($westSussex['button_url']); ?>'
+        },
+        'path-3': {
+            color: '#4DA2DA',
+            title: 'Hampshire',
+            description: '<?php 
+                $hampshire = get_field('hampshire', 'option');
+                echo esc_js($hampshire['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($hampshire['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($hampshire['button_url']); ?>'
+        },
+        'path-5': {
+            color: '#F5A322',
+            title: 'Somerset',
+            description: '<?php 
+                $somerset = get_field('somerset', 'option');
+                echo esc_js($somerset['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($somerset['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($somerset['button_url']); ?>'
+        },
+        'path-6': {
+            color: '#E62485',
+            title: 'Wiltshire',
+            description: '<?php 
+                $wiltshire = get_field('wiltshire', 'option');
+                echo esc_js($wiltshire['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($wiltshire['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($wiltshire['button_url']); ?>'
+        },
+        'path-7': {
+            color: '#66BB93',
+            title: 'East Sussex',
+            description: '<?php 
+                $eastSussex = get_field('east_sussex', 'option');
+                echo esc_js($eastSussex['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($eastSussex['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($eastSussex['button_url']); ?>'
+        },
+        'path-8': {
+            color: '#00827B',
+            title: 'Dorset',
+            description: '<?php 
+                $dorset = get_field('dorset', 'option');
+                echo esc_js($dorset['description']); 
+            ?>',
+            buttonText: '<?php echo esc_js($dorset['button_text']); ?>',
+            buttonUrl: '<?php echo esc_js($dorset['button_url']); ?>'
+        }
+        // Add other regions similarly
     };
-    
-    mapPins.forEach(pin => {
-        pin.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            const region = pin.getAttribute('data-region');
-            const path = document.querySelector(`path[path-id="${region}"]`);
-            const regionColor = regionColors[region];
-            
-            // Debug output
-            debugEl.innerHTML = `
-Click detected:
-- Region: ${region}
-- Path found: ${path ? 'Yes' : 'No'}
-- Color to apply: ${regionColors[region]}
-- Current path fill: ${path ? path.getAttribute('fill') : 'N/A'}
-`;
-            
-            // Remove highlight from all paths first
-            document.querySelectorAll('path').forEach(p => {
-                p.classList.remove('highlighted-path');
-            });
-            
-            const info = pin.querySelector('.map-pin__info').innerHTML;
-            infoBox.innerHTML = info;
-            
-            // Update info box background color to match region
-            if (regionColor) {
-                infoBox.style.backgroundColor = regionColor;
-            }
-            
-            showInfoBox();
-            showOverlay();
 
-            if (path) {
-                path.style.setProperty('--highlight-color', regionColor);
-                path.classList.add('highlighted-path');
-                
-                // Additional debug
-                debugEl.innerHTML += `
-After update:
-- Path fill: ${path.getAttribute('fill')}
-- Classes: ${path.className.baseVal}
-- Style: ${path.getAttribute('style')}
-`;
-            }
-        });
-    });
-
-    mapContainer.addEventListener('click', () => {
-        hideInfoBox();
-        hideOverlay();
+    // Add click handlers to each path
+    paths.forEach(path => {
+        const pathId = path.getAttribute('path-id');
         
-        // Remove highlight from all paths
-        document.querySelectorAll('path').forEach(path => {
-            path.classList.remove('highlighted-path');
+        path.addEventListener('click', () => {
+            const data = regionData[pathId];
+            if (data) {
+                // Show info box
+                infoBox.innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p>${data.description}</p>
+                    ${data.buttonText && data.buttonUrl ? 
+                        `<a href="${data.buttonUrl}" class="button">${data.buttonText}</a>` : 
+                        ''
+                    }
+                `;
+                infoBox.style.display = 'block';
+                infoBox.style.opacity = '1';
+                infoBox.style.backgroundColor = data.color;
+
+                // Show overlay
+                mapOverlay.style.visibility = 'visible';
+                mapOverlay.style.opacity = '1';
+
+                // Highlight the clicked path
+                paths.forEach(p => p.classList.remove('highlighted-path'));
+                path.classList.add('highlighted-path');
+                path.style.setProperty('--highlight-color', data.color);
+            }
+        });
+
+        // Add hover effect
+        path.addEventListener('mouseenter', () => {
+            path.style.opacity = '0.8';
+        });
+
+        path.addEventListener('mouseleave', () => {
+            path.style.opacity = '1';
         });
     });
 
-    infoBox.addEventListener('click', (e) => {
-        e.stopPropagation();
-    });
-
-    function showInfoBox() {
-        infoBox.style.display = 'block';
-        setTimeout(() => {
-            infoBox.style.opacity = '1';
-        }, 10);
-    }
-
-    function hideInfoBox() {
+    // Close info box when clicking overlay
+    mapOverlay.addEventListener('click', () => {
         infoBox.style.opacity = '0';
         setTimeout(() => {
             infoBox.style.display = 'none';
         }, 300);
-    }
-
-    function showOverlay() {
-        mapOverlay.style.visibility = 'visible';
-        mapOverlay.style.opacity = '1';
-    }
-
-    function hideOverlay() {
+        
         mapOverlay.style.opacity = '0';
         setTimeout(() => {
             mapOverlay.style.visibility = 'hidden';
         }, 300);
-    }
+
+        // Remove all path highlights
+        paths.forEach(path => {
+            path.classList.remove('highlighted-path');
+        });
+    });
 });
 </script>
